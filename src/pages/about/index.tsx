@@ -1,9 +1,9 @@
 import * as React from 'react'
 import type { NextPage } from 'next'
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import Layout from '../../layouts'
 import Head from '@/components/Head'
 import Link from '@/components/Link'
 import ProTip from '@/components/PropTip'
@@ -11,7 +11,7 @@ import Copyright from '@/components/Copyright'
 
 const About: NextPage = () => {
   return (
-    <Container maxWidth="lg">
+    <Layout>
       <Head>
         <title>
           About
@@ -37,7 +37,7 @@ const About: NextPage = () => {
         <ProTip />
         <Copyright />
       </Box>
-    </Container>
+    </Layout>
   )
 }
 
