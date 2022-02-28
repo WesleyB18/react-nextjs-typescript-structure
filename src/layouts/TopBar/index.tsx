@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { MyAppContext, MyAppContextType } from '../../pages/_app'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiAppBar from '@mui/material/AppBar'
@@ -10,16 +10,29 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
 
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.light,
-  color: theme.palette.text.primary
+  backgroundColor: theme.palette.mode === 'light' ? '#fff' : 'inherit',
+  color: theme.palette.mode === 'light' ? theme.palette.text.primary : 'inherit',
 }))
 
 export default function TopBar() {
+  const [fullScreen, setFullScreen] = useState(false);
   const { colorMode }: MyAppContextType = useContext(MyAppContext)
   const { toggleColorMode } = colorMode
   const theme = useTheme()
+
+  const toggleFullScreen = (event: React.MouseEvent<unknown>): void => {
+      if (!document.fullscreenElement) {
+          if (document.documentElement.requestFullscreen)
+              document.documentElement.requestFullscreen()
+      } else {
+          if (document.exitFullscreen)
+              document.exitFullscreen();
+      }
+      setFullScreen(!fullScreen);
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -58,10 +71,11 @@ export default function TopBar() {
             </IconButton>
             <IconButton
               size="large"
-              aria-label="fullscreen"
+              aria-label={fullScreen ? "Sair da tela inteira" : "Tela inteira"}
               color="inherit"
+              onClick={toggleFullScreen}
             >
-              <FullscreenIcon />
+              {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
             </IconButton>
           </Box>
         </Toolbar>
