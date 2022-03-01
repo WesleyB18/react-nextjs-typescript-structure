@@ -1,17 +1,21 @@
 import * as React from 'react'
-import type { NextPage } from 'next'
 import Container from '@mui/material/Container'
 import TopBar from './TopBar'
 
-const Layout: NextPage = ({ children }) => {
+interface Props {
+  window?: () => Window;
+  children: React.ReactElement;
+}
+
+export default function Layout(props: Props) {
+  const { children } = props
+
   return (
     <>
-      <TopBar />
+      <TopBar {...props} />
       <Container component="main" maxWidth="lg">
         {children}
       </Container>
     </>
   )
 }
-
-export default Layout

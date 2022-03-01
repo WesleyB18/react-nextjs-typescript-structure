@@ -9,6 +9,11 @@ import TogleColorMode from './ToggleColorMode'
 import TogleFullscreenMode from './ToggleFullscreen'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 
+interface Props {
+  window?: () => Window;
+  children: React.ReactElement;
+}
+
 function ElevationScroll(props: Props) {
   const { children, window } = props;
   const trigger = useScrollTrigger({
@@ -30,11 +35,6 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
   borderLeft: 0,
   borderRight: 0
 }))
-
-interface Props {
-  window?: () => Window;
-  children: React.ReactElement;
-}
 
 export default function TopBar(props: Props) {
   return (
