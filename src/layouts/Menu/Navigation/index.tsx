@@ -1,16 +1,20 @@
 import React, { useContext } from 'react'
+import { useRouter } from 'next/router'
 import { LayoutContext } from '@/contexts/LayoutContext'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
+import Toolbar from '@mui/material/Toolbar'
 import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
+import DraftsIcon from '@mui/icons-material/Drafts'
+import Link from '@/components/Link'
 
 const Navigation: React.FC = () => {
   const { toggleMenu } = useContext(LayoutContext)
+  const router = useRouter()
 
   return (
     <Box
@@ -19,24 +23,24 @@ const Navigation: React.FC = () => {
       onClick={toggleMenu(false)}
       onKeyDown={toggleMenu(false)}
     >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      <Toolbar />
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
+        {[
+          { text: 'Home', href: '/', icon: <MailIcon /> },
+          { text: 'About', href: '/about', icon: <DraftsIcon /> }
+        ].map((item) => (
+          <ListItem
+            button
+            key={item.href}
+            component={Link}
+            href={item.href}
+            selected={router.route === item.href}
+          >
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {item.icon}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={item.text} />
           </ListItem>
         ))}
       </List>
