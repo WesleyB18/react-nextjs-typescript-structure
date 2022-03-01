@@ -27,7 +27,6 @@ export default function ToggleFullscreen() {
       <IconButton
         size="large"
         aria-label={fullScreen ? 'Tela inteira' : 'Sair da tela inteira'}
-        color="inherit"
         onClick={toggleFullscreen}
       >
         {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}

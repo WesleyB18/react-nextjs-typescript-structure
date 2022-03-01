@@ -23,7 +23,6 @@ export default function ToggleColorMode() {
           ? 'Modo noturno'
           : 'Modo claro'
         }
-        color="inherit"
         onClick={colorMode.toggleColorMode}
       >
         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}

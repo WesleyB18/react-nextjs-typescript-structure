@@ -8,7 +8,6 @@ export default function ToggleMenu() {
       <IconButton
         size="large"
         edge="start"
-        color="inherit"
         aria-label="Menu principal"
         sx={{ mr: 2 }}
       >

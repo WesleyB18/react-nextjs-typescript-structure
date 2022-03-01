@@ -1,16 +1,14 @@
 import * as React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
-import createEmotionCache from './createEmotionCache'
+import createEmotionCache from '../utils/createEmotionCache'
 
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <Head>
-          {/* PWA primary color */}
           <link rel="shortcut icon" href="/favicon.ico" />
-          {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
         </Head>
         <body>

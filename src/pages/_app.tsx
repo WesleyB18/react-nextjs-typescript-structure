@@ -1,10 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useEffect } from 'react'
 import Head from '@/components/Head'
 import { AppContext, AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import createEmotionCache from './createEmotionCache'
+import createEmotionCache from '../utils/createEmotionCache'
 import { parseCookies, setCookie } from 'nookies'
 import { getDesignTokens } from '../themes'
 import { createTheme } from '@mui/material/styles'
@@ -25,6 +25,7 @@ export const MyAppContext = createContext<MyAppContextType>({
 export type MyAppContextType = {
   colorMode: ColorModeType
 }
+
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
   paletteMode?: PaletteMode
