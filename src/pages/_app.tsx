@@ -1,30 +1,30 @@
-import React, { createContext, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useMemo } from 'react'
 import Head from '@/components/Head'
 import { AppContext, AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import createEmotionCache from '../utils/createEmotionCache'
+import createEmotionCache from '@/utils/createEmotionCache'
 import { parseCookies, setCookie } from 'nookies'
-import { getDesignTokens } from '../themes'
+import getDesignTokens from '@/themes/getDesignTokens'
 import { createTheme } from '@mui/material/styles'
 import { PaletteMode } from '@mui/material'
 
 const clientSideEmotionCache = createEmotionCache()
 
-type ColorModeType = {
+interface ColorMode {
   toggleColorMode: (event: React.MouseEvent<unknown>) => void
 }
 
-export const MyAppContext = createContext<MyAppContextType>({
+interface ThemeContextValues {
+  colorMode: ColorMode
+}
+
+export const ThemeContext = createContext<ThemeContextValues>({
   colorMode: {
-    toggleColorMode: (event) => {}
+    toggleColorMode: () => {}
   }
 })
-
-export type MyAppContextType = {
-  colorMode: ColorModeType
-}
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
@@ -33,7 +33,7 @@ interface MyAppProps extends AppProps {
 
 export default function MyApp(props: MyAppProps) {
   const { Component, paletteMode = 'light', emotionCache = clientSideEmotionCache, pageProps } = props
-  const [mode, setMode] = React.useState<PaletteMode>(paletteMode);
+  const [mode, setMode] = useState<PaletteMode>(paletteMode)
 
   useEffect(() => {
     setCookie(null, 'paletteMode', mode, {
@@ -42,9 +42,8 @@ export default function MyApp(props: MyAppProps) {
     })
   }, [mode])
 
-  const colorMode = React.useMemo(
+  const colorMode = useMemo(
     () => ({
-      // The dark mode switch would invoke this method
       toggleColorMode: (event: React.MouseEvent<unknown>) => {
         setMode((prevMode: PaletteMode) =>
           prevMode === 'light' ? 'dark' : 'light',
@@ -54,14 +53,13 @@ export default function MyApp(props: MyAppProps) {
     [],
   )
 
-  const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode])
-
-  const myAppContextValues: MyAppContextType = {
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode])
+  const themeContextValues: ThemeContextValues = {
     colorMode
   }
 
   return (
-    <MyAppContext.Provider value={myAppContextValues}>
+    <ThemeContext.Provider value={themeContextValues}>
       <CacheProvider value={emotionCache}>
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -71,7 +69,7 @@ export default function MyApp(props: MyAppProps) {
           <Component {...pageProps} />
         </ThemeProvider>
       </CacheProvider>
-    </MyAppContext.Provider>
+    </ThemeContext.Provider>
   )
 }
 

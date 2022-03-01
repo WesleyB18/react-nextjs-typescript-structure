@@ -1,21 +1,20 @@
-import * as React from 'react'
+import React from 'react'
 import Container from '@mui/material/Container'
+import { LayoutProvider } from '@/contexts/LayoutContext'
 import TopBar from './TopBar'
+import Menu from './Menu'
 
-interface Props {
-  window?: () => Window;
-  children: React.ReactElement;
-}
-
-export default function Layout(props: Props) {
-  const { children } = props
+const Layout: React.FC = ({ children }) => {
 
   return (
-    <>
-      <TopBar {...props} />
+    <LayoutProvider>
+      <TopBar />
+      <Menu />
       <Container component="main" maxWidth="lg">
         {children}
       </Container>
-    </>
+    </LayoutProvider>
   )
 }
+
+export default Layout

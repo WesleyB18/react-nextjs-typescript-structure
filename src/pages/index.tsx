@@ -2,7 +2,7 @@ import * as React from 'react'
 import type { NextPage } from 'next'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import Layout from '../layouts'
+import Layout from '@/layouts/index'
 import Head from '@/components/Head'
 import Link from '@/components/Link'
 import ProTip from '@/components/PropTip'
@@ -39,4 +39,3 @@ const Home: NextPage = () => {
 }
 
 export default Home
-

@@ -1,5 +1,6 @@
-import React, { cloneElement } from 'react'
+import React, { cloneElement, useContext } from 'react'
 import { styled } from '@mui/material/styles'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
 import MuiAppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -7,7 +8,6 @@ import Typography from '@mui/material/Typography'
 import ToggleMenu from './ToggleMenu'
 import TogleColorMode from './ToggleColorMode'
 import TogleFullscreenMode from './ToggleFullscreen'
-import useScrollTrigger from '@mui/material/useScrollTrigger'
 
 interface Props {
   window?: () => Window;
@@ -16,6 +16,7 @@ interface Props {
 
 function ElevationScroll(props: Props) {
   const { children, window } = props;
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -36,7 +37,7 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
   borderRight: 0
 }))
 
-export default function TopBar(props: Props) {
+const TopBar: React.FC = (props) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ElevationScroll {...props}>
@@ -63,3 +64,5 @@ export default function TopBar(props: Props) {
     </Box>
   )
 }
+
+export default TopBar

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
-import { MyAppContext, MyAppContextType } from '../../../pages/_app'
+import { ThemeContext } from '@/pages/_app'
 import { useTheme } from '@mui/material/styles'
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 
 export default function ToggleColorMode() {
-  const { colorMode }: MyAppContextType = useContext(MyAppContext)
   const theme = useTheme()
+  const { colorMode } = useContext(ThemeContext)
 
   return (
     <Tooltip title={
